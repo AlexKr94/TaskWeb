@@ -3,7 +3,7 @@
    return array(
 
        'host' => 'localhost',
-       'dbname' => 'proj1',
+       'dbname' => 'webtask',
        'user' => 'root',
        'password' => '12345',
    );

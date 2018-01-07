@@ -4,6 +4,8 @@ include_once ROOT.'/components/Db.php';
 
      class TasksPage {
 
+         const TASKSONPAGE = 3;
+
          public static function getItemById ($id){
 
              $id = intval($id);
@@ -35,9 +37,10 @@ include_once ROOT.'/components/Db.php';
              if (!$page)
                  $page = 1;
 
-                 $offset = ($page -1) * $pageCount;
 
-                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset". self::TASKONPAGE);
+                 $offset = ($page -1) * self::TASKSONPAGE;
+
+                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset". self::TASKSONPAGE);
 
 
             $i = 0;
@@ -53,6 +56,16 @@ include_once ROOT.'/components/Db.php';
              return $tasksList;
 
 
+
+
+
+
+         }
+
+         public function getNumPages (){
+
+             $db = Db::getConnection();
+             $result = $db->query('SELECT count(*) FROM tasks');
 
 
 

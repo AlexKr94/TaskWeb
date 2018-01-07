@@ -32,12 +32,13 @@ include_once ROOT.'/components/Db.php';
              //$result = $db->query('SELECT * FROM tasks ORDER BY id ASC LIMIT 3');
              $pageCount = $result ->fetch();
 
-             if (!$page) {
+             if (!$page)
                  $page = 1;
-                 $start = ($page -1) * $pageCount;
 
-                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $start, $pageCount");
-             }
+                 $offset = ($page -1) * $pageCount;
+
+                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset". self::TASKONPAGE);
+
 
             $i = 0;
              while($row = $result->fetch()) {

@@ -4,6 +4,8 @@ include_once ROOT . '/Models/TasksPage.php';
 
      class TasksController {
 
+         const TASKSONPAGE = 3;
+
         public function actionIndex () {
 
             $page = isset($_GET['page']) ? $_GET['page'] : 1;

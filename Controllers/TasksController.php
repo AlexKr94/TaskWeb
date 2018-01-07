@@ -17,6 +17,8 @@ include_once ROOT . '/Models/TasksPage.php';
         public function actionCreate () {
 
              require_once (ROOT . '/Views/Create.php');
+
+            exit;
          }
 
         public function actionView ($id) {
@@ -26,5 +28,7 @@ include_once ROOT . '/Models/TasksPage.php';
              }
 
              require_once (ROOT.'/Views/view.php');
+
+            exit;
          }
      };

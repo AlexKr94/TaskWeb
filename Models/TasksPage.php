@@ -33,10 +33,10 @@ include_once ROOT.'/components/Db.php';
              $pageCount = $result ->fetch();
 
              if (!$page) {
-
+                 $page = 1;
                  $start = ($page -1) * $pageCount;
 
-                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $start $pageCount");
+                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $start, $pageCount");
              }
 
             $i = 0;

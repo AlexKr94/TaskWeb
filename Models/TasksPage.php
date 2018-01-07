@@ -62,7 +62,7 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public function getNumPages (){
+         public static function getNumPages (){
 
              $db = Db::getConnection();
              $result = $db->query('SELECT count(*) FROM tasks');
@@ -70,9 +70,6 @@ include_once ROOT.'/components/Db.php';
              $numPages = $tasksCount / self::TASKSONPAGE;
 
              return $numPages;
-
-
-
 
          }
      }

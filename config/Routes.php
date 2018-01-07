@@ -9,7 +9,7 @@
 
          //'tasks/([a-z])' => 'tasks/$1',
 
-         'tasks/?([a-z])' => 'tasks/Index?$1',
+         'tasks?([a-z])' => 'tasks/Index?$1',
 
          'tasks' => 'tasks/Index',
 

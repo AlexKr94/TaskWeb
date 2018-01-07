@@ -6,6 +6,13 @@ include_once ROOT . '/Models/TasksPage.php';
 
         public function actionIndex () {
 
+            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $order= isset($_GET['order']) ? $_GET['order'] : 'id';
+
+            var_dump($page);
+
+
+
             $tasksList = array();
             $tasksList = TasksPage::getTasksList();
 

@@ -21,24 +21,40 @@ include_once ROOT.'/components/Db.php';
              }
          }
 
-         public static function getTasksList () {
+         public static function getTasksList ($page, $order = 'id') {
 
              $db = Db::getConnection();
 
              $tasksList = array();
 
-             $result = $db->query('SELECT * FROM tasks ORDER BY id ASC LIMIT 3');
+             $result = $db->query('SELECT count(*) FROM tasks');
 
-             $i = 0;
+             //$result = $db->query('SELECT * FROM tasks ORDER BY id ASC LIMIT 3');
+             $pageCount = $result ->fetch();
+
+             if (!$page) {
+
+                 $start = ($page -1) * $pageCount;
+
+                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $start $pageCount");
+             }
+
+            $i = 0;
              while($row = $result->fetch()) {
 
                  $tasksList[$i]['id'] = $row['id'];
                  $tasksList[$i]['name'] = $row['name'];
                  $tasksList[$i]['email'] = $row['email'];
                  $tasksList[$i]['task'] = $row['task'];
-                     $i++;
+                 $i++;
              }
 
              return $tasksList;
+
+
+
+
+
+
          }
      }

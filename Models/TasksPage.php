@@ -66,6 +66,10 @@ include_once ROOT.'/components/Db.php';
 
              $db = Db::getConnection();
              $result = $db->query('SELECT count(*) FROM tasks');
+             $tasksCount = $result->fetch();
+             $numPages = $tasksCount / self::TASKSONPAGE;
+
+             return $numPages;
 
 
 

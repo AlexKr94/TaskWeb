@@ -29,18 +29,9 @@ include_once ROOT.'/components/Db.php';
 
              $tasksList = array();
 
-             $result = $db->query('SELECT count(*) FROM tasks');
-
-             //$result = $db->query('SELECT * FROM tasks ORDER BY id ASC LIMIT 3');
-             $pageCount = $result ->fetch();
-
-             if (!$page)
-                 $page = 1;
-
-
                  $offset = ($page -1) * self::TASKSONPAGE;
 
-                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset". self::TASKSONPAGE);
+                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset," . self::TASKSONPAGE);
 
 
             $i = 0;
@@ -62,14 +53,17 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public static function getNumPages (){
+         /*public static function getNumPages (){
 
              $db = Db::getConnection();
+
              $result = $db->query('SELECT count(*) FROM tasks');
+
              $tasksCount = $result->fetch();
-             $numPages = $tasksCount / self::TASKSONPAGE;
+
+             $numPages = $tasksCount / 3;
 
              return $numPages;
 
-         }
+         }*/
      }

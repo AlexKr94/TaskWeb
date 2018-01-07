@@ -8,14 +8,11 @@ include_once ROOT . '/Models/TasksPage.php';
 
             $page = isset($_GET['page']) ? $_GET['page'] : 1;
             $order= isset($_GET['order']) ? $_GET['order'] : 'id';
-            var_dump($_GET['page']);
-
-
 
             $tasksList = array();
             $tasksList = TasksPage::getTasksList($page);
             //var_dump($_GET['page']);
-            $numPages = TasksPage::getNumPages();
+            //$numPages = TasksPage::getNumPages();
 
                 require_once (ROOT . '/Views/Index.php');
 

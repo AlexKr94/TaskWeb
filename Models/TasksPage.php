@@ -31,7 +31,11 @@ include_once ROOT.'/components/Db.php';
 
                  $offset = ($page -1) * self::TASKSONPAGE;
 
-                 $result = $db->query("SELECT * FROM tasks ORDER BY id ASC LIMIT $offset," . self::TASKSONPAGE);
+                 $result = $db->prepare("SELECT * FROM tasks ORDER BY id ASC LIMIT :off," . self::TASKSONPAGE);
+             $result->bindValue(':off', $offset, PDO::PARAM_INT);
+
+
+             $result->execute();
 
 
             $i = 0;

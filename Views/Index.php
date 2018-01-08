@@ -45,12 +45,24 @@
                 <div class="card">
                     <h4><?php echo $taskItem['name'];?></h4>
                     <p><?php echo $taskItem['task'];?></p>
-                    <a href=""><?php echo $numPages?></a>
+                    <a href=""></a>
                 </div>
             </div>
            <?php endforeach;
         }?>
         </div>
+
+        <div>
+        <?php $pageT = 0; ?>
+        <?php while ($pageT++ < $numPages): ?>
+            <?php if ($pageT == $_GET['page']): ?>
+                <b><?php echo $pageT;?></b>
+            <?php else: ?>
+                <a href="?page=<?php echo $pageT;?>"><? echo $pageT; ?></a>
+            <?php endif ?>
+        <?php endwhile ?>
+        </div>
+
     </div>
 </div>
 

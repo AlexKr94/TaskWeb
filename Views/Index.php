@@ -20,7 +20,7 @@
         <div class="container">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://task.web/tasks">home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="http://task.web/tasks/?page=1&order=<?php echo htmlspecialchars($_GET["order"]); ?>">home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://task.web/tasks/create">create task</a>

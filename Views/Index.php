@@ -45,7 +45,7 @@
                 <div class="card">
                     <h4><?php echo $taskItem['name'];?></h4>
                     <p><?php echo $taskItem['task'];?></p>
-                    <a href=""></a>
+                    <a href=""><?php echo $numPages?></a>
                 </div>
             </div>
            <?php endforeach;

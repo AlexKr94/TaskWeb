@@ -23,19 +23,23 @@ include_once ROOT.'/components/Db.php';
              }
          }
 
-         public static function getTasksList ($page, $order = 'id') {
+         public static function getTasksList ($curlpage, $order = 'id') {
 
              $db = Db::getConnection();
 
              $tasksList = array();
 
+             $page = 1;
+                 if (isset($curlpage) && $curlpage > 0) {
+                     $page = $curlpage;
+                 }
+
                  $offset = ($page -1) * self::TASKSONPAGE;
 
                  $result = $db->prepare("SELECT * FROM tasks ORDER BY id ASC LIMIT :off," . self::TASKSONPAGE);
-             $result->bindValue(':off', $offset, PDO::PARAM_INT);
+                 $result->bindValue(':off', $offset, PDO::PARAM_INT);
 
-
-             $result->execute();
+                 $result->execute();
 
 
             $i = 0;
@@ -50,24 +54,21 @@ include_once ROOT.'/components/Db.php';
 
              return $tasksList;
 
-
-
-
-
-
          }
 
-         /*public static function getNumPages (){
+         public static function getNumPages (){
 
              $db = Db::getConnection();
 
-             $result = $db->query('SELECT count(*) FROM tasks');
+             $resultcount = $db->query('SELECT count(*) FROM tasks');
 
-             $tasksCount = $result->fetch();
+             $Count = $resultcount->fetch();
 
-             $numPages = $tasksCount / 3;
+            $tasksCount = $Count['count(*)'];
+
+             $numPages = ceil($tasksCount/self::TASKSONPAGE);
 
              return $numPages;
 
-         }*/
+         }
      }

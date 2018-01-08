@@ -6,13 +6,14 @@ include_once ROOT . '/Models/TasksPage.php';
 
         public function actionIndex () {
 
-            $page = isset($_GET['page']) ? $_GET['page'] : 1;
+            $curlpage = isset($_GET['page']) ? $_GET['page'] : 1;
+
             $order= isset($_GET['order']) ? $_GET['order'] : 'id';
 
             $tasksList = array();
-            $tasksList = TasksPage::getTasksList($page);
-            //var_dump($_GET['page']);
-            //$numPages = TasksPage::getNumPages();
+
+            $tasksList = TasksPage::getTasksList($curlpage);
+            $numPages = TasksPage::getNumPages();
 
                 require_once (ROOT . '/Views/Index.php');
 

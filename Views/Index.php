@@ -53,14 +53,21 @@
         </div>
 
         <div>
-        <?php $pageT = 0; ?>
-        <?php while ($pageT++ < $numPages): ?>
-            <?php if ($pageT == $_GET['page']): ?>
-                <b><?php echo $pageT;?></b>
-            <?php else: ?>
-                <a href="?page=<?php echo $pageT; ?>&order=<?php echo htmlspecialchars($_GET["order"]); ?>"><?php echo $pageT; ?></a>
-            <?php endif ?>
-        <?php endwhile ?>
+            <nav aria-label="...">
+                <ul class="pagination">
+
+                    <?php $pageT = 0; ?>
+                    <?php while ($pageT++ < $numPages): ?>
+                        <?php if ($pageT == $_GET['page']): ?>
+                            <li class="page-item active">
+
+                            <a class="page-link" href="#"><?php echo $pageT;?> <span class="sr-only">(current)</span></a>
+                        <?php else: ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $pageT; ?>&order=<?php echo htmlspecialchars($_GET["order"]); ?>"><?php echo $pageT; ?></a></li>
+                        <?php endif ?>
+                    <?php endwhile ?>
+                </ul>
+            </nav>
         </div>
 
     </div>

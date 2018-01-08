@@ -58,7 +58,7 @@
             <?php if ($pageT == $_GET['page']): ?>
                 <b><?php echo $pageT;?></b>
             <?php else: ?>
-                <a href="?page=<?php echo $pageT;?>"><? echo $pageT; ?></a>
+                <a href="?page=<?php echo $pageT; ?>&order=<?php echo htmlspecialchars($_GET["order"]); ?>"><?php echo $pageT; ?></a>
             <?php endif ?>
         <?php endwhile ?>
         </div>

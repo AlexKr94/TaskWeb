@@ -20,7 +20,13 @@
         <div class="container">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="http://task.web/tasks/?page=1&order=<?php echo htmlspecialchars($_GET["order"]); ?>">home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="http://task.web/?page=1&order=<?php
+
+                    if (isset($_GET['order'])) {
+                        echo htmlspecialchars($_GET["order"]); }
+                    else {
+                        echo 1;
+                    } ; ?>">home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="http://task.web/tasks/create">create task</a>
@@ -51,6 +57,12 @@
            <?php endforeach;
         }?>
         </div>
+        <div class="sort">
+            Sort by:
+            <a class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">ID</a>
+            <a class="btn btn-primary" href="http://task.web/?page=1&order=name" role="button">NAME</a>
+            <a class="btn btn-primary" href="http://task.web/?page=1&order=email" role="button">E-MAIL</a>
+        </div>
 
         <div>
             <nav aria-label="...">
@@ -63,7 +75,7 @@
 
                             <a class="page-link" href="#"><?php echo $pageT;?> <span class="sr-only">(current)</span></a>
                         <?php else: ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $pageT; ?>&order=<?php echo htmlspecialchars($_GET["order"]); ?>"><?php echo $pageT; ?></a></li>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $pageT; ?>&order=<?php if(isset($_GET['order'])) {echo htmlspecialchars($_GET["order"]);} else {echo 'id';};?>"><?php echo $pageT; ?></a></li>
                         <?php endif ?>
                     <?php endwhile ?>
                 </ul>

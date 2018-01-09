@@ -23,23 +23,26 @@ include_once ROOT.'/components/Db.php';
              }
          }
 
-         public static function getTasksList ($curlpage, $order = 'id') {
+         public static function getTasksList ($order, $curlPage) {
 
              $db = Db::getConnection();
 
              $tasksList = array();
 
              $page = 1;
-                 if (isset($curlpage) && $curlpage > 0) {
-                     $page = $curlpage;
+
+                 if (isset($curlPage) && $curlPage > 0) {
+                     $page = $curlPage;
                  }
 
                  $offset = ($page -1) * self::TASKSONPAGE;
 
-                 $result = $db->prepare("SELECT * FROM tasks ORDER BY id ASC LIMIT :off," . self::TASKSONPAGE);
-                 $result->bindValue(':off', $offset, PDO::PARAM_INT);
+             $result = $db->prepare("SELECT * FROM tasks ORDER BY :ord ASC LIMIT :off," . self::TASKSONPAGE);
 
-                 $result->execute();
+             $result->bindValue(':ord', $order, PDO::PARAM_STR);
+             $result->bindValue(':off', $offset, PDO::PARAM_INT);
+
+             $result->execute();
 
 
             $i = 0;

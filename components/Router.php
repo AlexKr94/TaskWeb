@@ -25,13 +25,10 @@
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
                 $segments = explode('/', $internalRoute);
 
-                var_dump($segments);
-
                 $controllerName = array_shift($segments) . 'Controller';
                 $controllerName = ucfirst($controllerName);
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
-
 
                 $parametrs = $segments;
 

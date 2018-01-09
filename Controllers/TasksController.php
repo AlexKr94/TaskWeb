@@ -6,23 +6,25 @@ include_once ROOT . '/Models/TasksPage.php';
 
         public function actionIndex () {
 
-            $curlpage = isset($_GET['page']) ? $_GET['page'] : 1;
+                $curlPage = isset($_GET['page']) ? $_GET['page'] : 1;
+                $order = isset($_GET['order']) ? $_GET['order'] : 'id';
 
-            $order= isset($_GET['order']) ? $_GET['order'] : 'id';
+                $tasksList = array();
 
-            $tasksList = array();
+                $tasksList = TasksPage::getTasksList($order, $curlPage);
+                $numPages = TasksPage::getNumPages();
 
-            $tasksList = TasksPage::getTasksList($curlpage);
-            $numPages = TasksPage::getNumPages();
+            require_once(ROOT . '/Views/Index.php');
 
-                require_once (ROOT . '/Views/Index.php');
 
-            exit;
+
+                exit;
+
          }
 
         public function actionCreate () {
 
-             require_once (ROOT . '/Views/Create.php');
+            require_once(ROOT . '/Views/Create.php');
 
             exit;
          }

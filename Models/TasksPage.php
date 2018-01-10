@@ -65,9 +65,8 @@ include_once ROOT.'/components/Db.php';
 
              $db = Db::getConnection();
 
-             $resultcount = $db->query('SELECT count(*) FROM tasks');
-
-             $Count = $resultcount->fetch();
+             $resultCount = $db->query('SELECT count(*) FROM tasks');
+             $Count = $resultCount->fetch();
 
             $tasksCount = $Count['count(*)'];
 
@@ -77,16 +76,20 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public static function addTask ($email, $userName, $text) {
+         public static function addTask ($email, $name, $text) {
 
              $db = Db::getConnection();
 
-             $add = $db->prepare("INSERT INTO `tasks`(`name`, `email`, `task`) VALUES (:email,:username, :text)");
+             $add = $db->prepare("INSERT INTO `tasks`(`name`, `email`, `task`) VALUES (:name,:email, :text)");
 
              $add->bindValue(':email', $email);
-             $add->bindValue(':username', $userName);
+             $add->bindValue(':name', $name);
              $add->bindValue(':text', $text);
 
              $add->execute();
+
+             $addText = true;
+
+             return $addText;
          }
      }

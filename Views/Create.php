@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>Create your taks</title>
+    <title>CREAR YOUR TASK</title>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
             <div class="container">
@@ -30,8 +30,7 @@
 <body>
 <div class="content">
     <div class="container">
-        <?php print_r($_POST); ?>
-        <form>
+        <form action="/tasks/create"  method="post">
             <div class="form-group" name="Create form">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">

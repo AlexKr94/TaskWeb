@@ -39,7 +39,7 @@ include_once ROOT.'/components/Db.php';
 
              $result = $db->prepare("SELECT * FROM tasks ORDER BY :ord ASC LIMIT :off," . self::TASKSONPAGE);
 
-             $result->bindValue(':ord', $order, PDO::PARAM_STR);
+             $result->bindValue(':ord', $order);
              $result->bindValue(':off', $offset, PDO::PARAM_INT);
 
              $result->execute();

@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>Create your taks</title>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
             <div class="container">
@@ -25,23 +26,30 @@
             </div>
         </nav>
     </header>
-
 </head>
 <body>
 <div class="content">
     <div class="container">
         <?php print_r($_POST); ?>
         <form>
-            <div class="form-group">
+            <div class="form-group" name="Create form">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Example textarea</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <label for="inlineFormInput">Name</label>
+                <input type="text" class="form-control mb-2" id="nameInput" placeholder="Your name">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Task area</label>
+                <textarea class="form-control" id="textArea" rows="3"></textarea>
+            </div>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <button type="submit" class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">Submit</button>
         </form>
 
     </div>

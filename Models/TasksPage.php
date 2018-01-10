@@ -29,6 +29,10 @@ include_once ROOT.'/components/Db.php';
 
              $tasksList = array();
 
+             $orderPrepare= array('id','name','email');
+             $key= array_search($_GET['order'],$orderPrepare);
+             $orders = $orderPrepare[$key];
+
              $page = 1;
 
                  if (isset($curlPage) && $curlPage > 0) {
@@ -37,9 +41,7 @@ include_once ROOT.'/components/Db.php';
 
                  $offset = ($page -1) * self::TASKSONPAGE;
 
-             $result = $db->prepare("SELECT * FROM tasks ORDER BY :ord ASC LIMIT :off," . self::TASKSONPAGE);
-
-             $result->bindValue(':ord', $order);
+             $result = $db->prepare("SELECT * FROM tasks ORDER BY ".$orders." ASC LIMIT :off," . self::TASKSONPAGE);
              $result->bindValue(':off', $offset, PDO::PARAM_INT);
 
              $result->execute();
@@ -73,5 +75,18 @@ include_once ROOT.'/components/Db.php';
 
              return $numPages;
 
+         }
+
+         public static function addTask ($email, $userName, $text) {
+
+             $db = Db::getConnection();
+
+             $add = $db->prepare("INSERT INTO `tasks`(`name`, `email`, `task`) VALUES (:email,:username, :text)");
+
+             $add->bindValue(':email', $email);
+             $add->bindValue(':username', $userName);
+             $add->bindValue(':text', $text);
+
+             $add->execute();
          }
      }

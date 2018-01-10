@@ -24,6 +24,13 @@ include_once ROOT . '/Models/TasksPage.php';
 
         public function actionCreate () {
 
+            $email = isset($_POST['exampleInputEmail1']);
+            $userName = isset($_POST['nameInput']);
+            $text = isset($_POST['textArea']);
+
+            $addText = TasksPage::addTask($email,$userName,$text);
+
+
             require_once(ROOT . '/Views/Create.php');
 
             exit;

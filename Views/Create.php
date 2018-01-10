@@ -49,7 +49,7 @@
                 <input type="file" class="custom-file-input" id="customFile">
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
-            <button type="submit" class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">Submit</button>
+            <button type="Send!" class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">Submit</button>
         </form>
 
     </div>

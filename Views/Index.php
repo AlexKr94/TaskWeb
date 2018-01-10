@@ -45,14 +45,17 @@
                 foreach ($tasksList as $taskItem): ?>
                     <div class="col-md-12">
                         <div class="card">
-                            <h4><?php echo $taskItem['name'];?></h4>
-                            <p><?php echo $taskItem['task'];?></p>
+                            <h4><?=$taskItem['name'];?></h4>
+                            <p><b>Email: </b><?=$taskItem['email']?></p>
+                            <p><b>Task:</b><br><?=$taskItem['task'];?></p>
                             <a href=""></a>
                         </div>
+                        <p></p>
                     </div>
                 <?php endforeach;
             }?>
         </div>
+        <p></p>
         <div class="sort">
             Sort by:
             <a class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">ID</a>
@@ -60,6 +63,7 @@
             <a class="btn btn-primary" href="http://task.web/?page=1&order=email" role="button">E-MAIL</a>
         </div>
         <div>
+            <p></p>
             <nav aria-label="...">
                 <ul class="pagination">
 

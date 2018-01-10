@@ -16,15 +16,13 @@ include_once ROOT . '/Models/TasksPage.php';
 
             require_once(ROOT . '/Views/Index.php');
 
-
-
-                exit;
+            exit;
 
          }
 
         public function actionCreate () {
 
-            $email = isset($_POST['exampleInputEmail1']);
+            $email = isset($_POST['InputEmail1']);
             $userName = isset($_POST['nameInput']);
             $text = isset($_POST['textArea']);
 

@@ -58,9 +58,9 @@
         <p></p>
         <div class="sort">
             Sort by:
-            <a class="btn btn-primary" href="http://task.web/?page=1&order=id" role="button">ID</a>
-            <a class="btn btn-primary" href="http://task.web/?page=1&order=name" role="button">NAME</a>
-            <a class="btn btn-primary" href="http://task.web/?page=1&order=email" role="button">E-MAIL</a>
+            <a class="btn btn-primary" href="http://task.web/?page=<?=htmlspecialchars($_GET["page"])?>&order=id" role="button">ID</a>
+            <a class="btn btn-primary" href="http://task.web/?page=<?=htmlspecialchars($_GET["page"])?>&order=name" role="button">NAME</a>
+            <a class="btn btn-primary" href="http://task.web/?page=<?=htmlspecialchars($_GET["page"])?>&order=email" role="button">E-MAIL</a>
         </div>
         <div>
             <p></p>
@@ -72,7 +72,7 @@
                         <?php if ($pageT == $_GET['page']): ?>
                             <li class="page-item active">
 
-                            <a class="page-link" href="#"><?php echo $pageT;?> <span class="sr-only">(current)</span></a>
+                            <a class="page-link" href="#"><?=$pageT;?> <span class="sr-only">(current)</span></a>
                         <?php else: ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $pageT; ?>&order=<?php if(isset($_GET['order'])) {echo htmlspecialchars($_GET["order"]);} else {echo 'id';};?>"><?php echo $pageT; ?></a></li>
                         <?php endif ?>

@@ -22,6 +22,11 @@ include_once ROOT . '/Models/TasksPage.php';
 
         public function actionCreate () {
 
+            $tmp_path = 'tmp/';
+            $pathFile = 'upload/';
+            $types = array('image/gif', 'image/png', 'image/jpeg');
+            $size = 1024000;
+
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if (isset($_POST['send'])) {
@@ -33,11 +38,6 @@ include_once ROOT . '/Models/TasksPage.php';
                     $_SESSION['email'] = htmlspecialchars($_POST['email']);
                     $_SESSION['name'] = htmlspecialchars($_POST['name']);
                     $_SESSION['text'] = htmlspecialchars($_POST['text']);
-
-                    $tmp_path = 'tmp/';
-                    $pathFile = 'upload/';
-                    $types = array('image/gif', 'image/png', 'image/jpeg');
-                    $size = 1024000;
 
                     $error_email = "";
                     $error_name = "";
@@ -53,7 +53,7 @@ include_once ROOT . '/Models/TasksPage.php';
 
                     }
 
-                    if ($_FILES['picture']['size'] > $size){
+                    if ($_FILES['pic']['size'] > $size){
 
                         $error_file = "Too big image";
                         $error = true;

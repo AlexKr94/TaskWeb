@@ -30,13 +30,12 @@
 <body>
 <div class="content">
     <div class="container">
-        <form action="/tasks/create"  method="post">
+        <form action="/tasks/create" method="post" enctype="multipart/form-data" >
             <div class="form-group" name="Create form">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" name="email" id="inputEmail1" aria-describedby="emailHelp" value="<?=$_SESSION['email']?>" placeholder="Enter your Email">
                 <span style="color: #0069d9"><b><?=$error_email;?></b></span>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                <?php print_r($_SESSION['email']);?>
             </div>
             <div class="form-group">
                 <label for="inlineFormInput">Name</label>
@@ -49,11 +48,12 @@
                 <span style="color:  #0069d9"><b><?=$error_text;?></b></span>
             </div>
             <div class="custom-file">
-                <input type="file" class="custom-file-input" id="customFile">
+                <input type="file" name="pic" class="custom-file-input" id="custom">
                 <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
+            <span style="color: #0069d9"><b><?=$error_file;?></b></span>
             <p></p>
-            <button type="submit!" class="btn btn-primary" name="send" role="button">Send!</button>
+            <button type="submit" class="btn btn-primary" name="send">Send!</button>
         </form>
     </div>
 </div>

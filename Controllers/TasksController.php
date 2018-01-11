@@ -1,123 +1,163 @@
 <?php
-
 include_once ROOT . '/Models/TasksPage.php';
+class TasksController
+{
 
-     class TasksController {
+    public function actionIndex()
+    {
 
-        public function actionIndex () {
+        $curlPage = isset($_GET['page']) ? $_GET['page'] : 1;
+        $order = isset($_GET['order']) ? $_GET['order'] : 'id';
+        $tasksList = array();
 
-                $curlPage = isset($_GET['page']) ? $_GET['page'] : 1;
-                $order = isset($_GET['order']) ? $_GET['order'] : 'id';
+        $tasksList = TasksPage::getTasksList($order, $curlPage);
+        $numPages = TasksPage::getNumPages();
 
-                $tasksList = array();
+        require_once(ROOT . '/Views/Index.php');
 
-                $tasksList = TasksPage::getTasksList($order, $curlPage);
-                $numPages = TasksPage::getNumPages();
+        exit;
+    }
 
-            require_once(ROOT . '/Views/Index.php');
+    public function actionCreate()
+    {
 
-            exit;
+        $tmp_path = 'tmp/';
+        $pathFile = 'upload/';
+        $types = array('image/gif', 'image/png', 'image/jpeg');
+        $size = 1024000;
 
-         }
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        public function actionCreate () {
+            if (isset($_POST['send'])) {
 
-            $tmp_path = 'tmp/';
-            $pathFile = 'upload/';
-            $types = array('image/gif', 'image/png', 'image/jpeg');
-            $size = 1024000;
+                $email = htmlspecialchars($_POST['email']);
+                $name = htmlspecialchars($_POST['name']);
+                $text = htmlspecialchars($_POST['text']);
+                $img = htmlspecialchars($_FILES['pic']['name']);
 
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-                if (isset($_POST['send'])) {
-
-                    $email = htmlspecialchars($_POST['email']);
-                    $name = htmlspecialchars($_POST['name']);
-                    $text = htmlspecialchars($_POST['text']);
-                    $img = htmlspecialchars($_FILES['pic']['name']);
-
-                    $_SESSION['email'] = htmlspecialchars($_POST['email']);
-                    $_SESSION['name'] = htmlspecialchars($_POST['name']);
-                    $_SESSION['text'] = htmlspecialchars($_POST['text']);
-
-                    $error_email = "";
-                    $error_name = "";
-                    $error_text = "";
-                    $error_file = "";
-                    $error = false;
-                    $addText= false;
-
-                    if (!in_array($_FILES['pic']['type'], $types)){
-
-                        $error_file = "You can upload only .jpeg .gif .png";
-                        $error = true;
-
-                    }
-
-                    if ($_FILES['pic']['size'] > $size){
-
-                        $error_file = "Too big image";
-                        $error = true;
-
-                    }
-
-                    if (!copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
-
-                        $error_file = 'Uploading error';
-                        $error = true;
-
-                    }
-
-                    if($email == "" || !preg_match("/@/", $email)) {
-
-                        $error_email = "Enter your Email";
-                        $error = true;
-                    }
-                    if(strlen($name) == 0) {
-
-                        $error_name = "Enter your name";
-                        $error = true;
-                    }
-                    if(strlen($text) == 0) {
-
-                        $error_text = "Enter your task";
-                        $error = true;
-                    }
-                    if($error == false){
-
-                        $addText = TasksPage::addTask($email,$name,$text,$img);
-                    }
-                }
-            }
-
-            else {
-
-                $_SESSION['email'] = "";
-                $_SESSION['name'] = "";
-                $_SESSION['text'] = "";
+                $_SESSION['email'] = htmlspecialchars($_POST['email']);
+                $_SESSION['name'] = htmlspecialchars($_POST['name']);
+                $_SESSION['text'] = htmlspecialchars($_POST['text']);
 
                 $error_email = "";
                 $error_name = "";
                 $error_text = "";
                 $error_file = "";
                 $error = false;
-                $addText= false;
+                $addText = false;
+
+                if (!in_array($_FILES['pic']['type'], $types))
+                {
+
+                    $error_file = "You can upload only .jpeg .gif .png";
+                    $error = true;
+
+                }
+
+                if ($_FILES['pic']['size'] > $size)
+                {
+
+                    $error_file = "Too big image";
+                    $error = true;
+
+                }
+
+                if (strlen($_FILES['pic']['name']) != 0)
+                {
+
+                    $filename = $_FILES['pic']['name'];
+
+                    header('Content-Type: image/jpeg');
+
+                    list($width, $height) = getimagesize($filename);
+                    $koe=$width/240;
+                    $newheight = ceil($height/$koe);
+                    $koew=$width/320;
+                    $newwidth = ceil($width/$koew);
+
+                    $thumb = imagecreatetruecolor(240, $newheight);
+                    $source = imagecreatefromjpeg($filename);
+
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+
+                    imagejpeg($thumb);
+
+
+                    if (!copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
+
+                        $error_file = 'Uploading error';
+                        $error = true;
+                    }
+
+                }
+
+                if ($email == "" || !preg_match("/@/", $email))
+                {
+
+                    $error_email = "Enter your Email";
+                    $error = true;
+
+                }
+
+                if (strlen($name) == 0)
+                {
+
+                    $error_name = "Enter your name";
+                    $error = true;
+
+                }
+
+                if (strlen($text) == 0)
+                {
+
+                    $error_text = "Enter your task";
+                    $error = true;
+
+                }
+
+                if ($error == false)
+                {
+
+                    $addText = TasksPage::addTask($email, $name, $text, $img);
+
+                }
 
             }
 
-            require_once(ROOT . '/Views/Create.php');
+        }
 
-            exit;
-         }
+        else
+        {
 
-        public function actionView ($id) {
+            $_SESSION['email'] = "";
+            $_SESSION['name'] = "";
+            $_SESSION['text'] = "";
 
-             if ($id) {
-                 $taskItem = TasksPage::getItemById($id);
-             }
+            $error_email = "";
+            $error_name = "";
+            $error_text = "";
+            $error_file = "";
+            $error = false;
 
-             require_once (ROOT.'/Views/view.php');
+            $addText = false;
 
-            exit;
-         }
-     };
+        }
+
+        require_once(ROOT . '/Views/Create.php');
+        exit;
+    }
+
+    public function actionView($id)
+    {
+
+        if ($id)
+        {
+            $taskItem = TasksPage::getItemById($id);
+
+        }
+
+        require_once(ROOT . '/Views/view.php');
+        exit;
+    }
+
+};

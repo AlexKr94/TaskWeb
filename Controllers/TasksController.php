@@ -60,7 +60,7 @@ include_once ROOT . '/Models/TasksPage.php';
 
                     }
 
-                    if (!@copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
+                    if (!copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
 
                         $error_file = 'Uploading error';
                         $error = true;

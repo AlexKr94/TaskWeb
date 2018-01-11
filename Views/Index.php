@@ -48,6 +48,7 @@
                             <h4><?=$taskItem['name'];?></h4>
                             <p><b>Email: </b><?=$taskItem['email']?></p>
                             <p><b>Task:</b><br><?=$taskItem['task'];?></p>
+                            <p><img src="http://task.web/upload/<?php if (isset($taskItem['img'])){ echo $taskItem['img'];}?>" alt=""></p>
                             <a href=""></a>
                         </div>
                         <p></p>

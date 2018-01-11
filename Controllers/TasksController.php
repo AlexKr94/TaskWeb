@@ -34,6 +34,7 @@ include_once ROOT . '/Models/TasksPage.php';
                     $email = htmlspecialchars($_POST['email']);
                     $name = htmlspecialchars($_POST['name']);
                     $text = htmlspecialchars($_POST['text']);
+                    $img = htmlspecialchars($_FILES['pic']['name']);
 
                     $_SESSION['email'] = htmlspecialchars($_POST['email']);
                     $_SESSION['name'] = htmlspecialchars($_POST['name']);
@@ -84,7 +85,7 @@ include_once ROOT . '/Models/TasksPage.php';
                     }
                     if($error == false){
 
-                        $addText = TasksPage::addTask($email,$name,$text);
+                        $addText = TasksPage::addTask($email,$name,$text,$img);
                     }
                 }
             }

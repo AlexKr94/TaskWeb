@@ -34,11 +34,38 @@ include_once ROOT . '/Models/TasksPage.php';
                     $_SESSION['name'] = htmlspecialchars($_POST['name']);
                     $_SESSION['text'] = htmlspecialchars($_POST['text']);
 
+                    $tmp_path = 'tmp/';
+                    $pathFile = 'upload/';
+                    $types = array('image/gif', 'image/png', 'image/jpeg');
+                    $size = 1024000;
+
                     $error_email = "";
                     $error_name = "";
                     $error_text = "";
+                    $error_file = "";
                     $error = false;
                     $addText= false;
+
+                    if (!in_array($_FILES['pic']['type'], $types)){
+
+                        $error_file = "You can upload only .jpeg .gif .png";
+                        $error = true;
+
+                    }
+
+                    if ($_FILES['picture']['size'] > $size){
+
+                        $error_file = "Too big image";
+                        $error = true;
+
+                    }
+
+                    if (!@copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
+
+                        $error_file = 'Uploading error';
+                        $error = true;
+
+                    }
 
                     if($email == "" || !preg_match("/@/", $email)) {
 
@@ -71,6 +98,7 @@ include_once ROOT . '/Models/TasksPage.php';
                 $error_email = "";
                 $error_name = "";
                 $error_text = "";
+                $error_file = "";
                 $error = false;
                 $addText= false;
 

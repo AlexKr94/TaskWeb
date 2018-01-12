@@ -8,7 +8,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <title>LOGIN</title>
+    <title>Login</title>
+    <?php if (isset($_SESSION['admin'])) {
+        echo '<script>location.replace("http://task.web/?page=1&order=id");</script>'; exit;
+        exit;
+    }?>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
             <div class="container">
@@ -20,7 +24,8 @@
                         <a class="nav-link" href="http://task.web/tasks/create">create task</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://task.web/users/login">login</a>
+                        <a class="nav-link" href="http://task.web/<?php if(!isset($_SESSION['admin'])){ echo 'users/login'; }
+                        else { echo 'users/login?do=logout';} ?>"><?php if(!isset($_SESSION['admin'])){ echo 'Login'; } else { echo 'Logout' ;}?></a>
                     </li>
                 </ul>
             </div>
@@ -29,20 +34,20 @@
 <body>
 <div class="content">
     <div class="container">
-        <form action="/tasks/create" method="get" enctype="multipart/form-data" >
+        <form action="/users/login" method="post" enctype="multipart/form-data" >
             <div class="form-group" name="Login form">
                 <div class="form-group">
                 <label for="inlineFormInput">Login</label>
-                <input type="text" class="form-control mb-2" name="name" id="nameInput" value=""  placeholder="Your Name">
-                <span style="color: #0069d9"><b><?php/*=$error_log;*/?></b></span>
+                <input type="text" class="form-control mb-2" name="login" id="nameInput" value=""  placeholder="Login">
+                <span style="color: #0069d9"><b><?=$error_login;?></b></span>
             </div>
                 <div class="form-group">
                     <label for="inlineFormInput">Password</label>
-                    <input type="password" class="form-control mb-2" name="password" id="passInput" value=""  placeholder="Your Name">
-                    <span style="color: #0069d9"><b><?php/*=$error_pass;*/?></b></span>
+                    <input type="password" class="form-control mb-2" name="pass" id="passInput" value=""  placeholder="Password">
+                    <span style="color: #0069d9"><b><?=$error_pass;?></b></span>
                 </div>
             <p></p>
-            <button type="submit" class="btn btn-primary" name="butl">Login</button>
+            <button type="submit" class="btn btn-primary" name="logbut">Login</button>
         </form>
     </div>
 </div>

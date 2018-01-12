@@ -12,7 +12,7 @@
         echo '<script>location.replace("http://task.web/?page=1&order=id");</script>'; exit;
         exit;
     }?>
-    <title>CREAR YOUR TASK</title>
+    <title>Create your task</title>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
             <div class="container">
@@ -24,7 +24,9 @@
                         <a class="nav-link" href="http://task.web/tasks/create">create task</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://task.web/users/login">login</a>
+                        <a class="nav-link" href="http://task.web/<?php if(!isset($_SESSION['admin'])){ echo 'users/login'; }
+                        else { echo 'users/logout';} ?>"><?php if(!isset($_SESSION['admin'])){ echo 'Login'; }
+                            else { echo 'Logout' ;}?></a>
                     </li>
                 </ul>
             </div>

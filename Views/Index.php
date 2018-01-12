@@ -26,7 +26,9 @@
                         <a class="nav-link" href="http://task.web/tasks/create">create task</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://task.web/users/login">login</a>
+                        <a class="nav-link" href="http://task.web/<?php if(!isset($_SESSION['admin'])){ echo 'users/login'; }
+                        else { echo 'users/logout';} ?>"><?php if(!isset($_SESSION['admin'])){ echo 'Login'; }
+                            else { echo 'Logout' ;}?></a>
                     </li>
                 </ul>
             </div>

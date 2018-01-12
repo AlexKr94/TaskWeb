@@ -35,6 +35,10 @@ class TasksController
         $types = array('image/gif', 'image/png', 'image/jpeg');
         $size = 1024000;
 
+        $_SESSION['email'] = '';
+        $_SESSION['name'] = '';
+        $_SESSION['text'] = '';
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['send'])) {

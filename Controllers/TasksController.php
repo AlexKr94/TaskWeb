@@ -65,29 +65,47 @@ class TasksController
                 if (strlen($_FILES['pic']['name']) != 0)
                 {
 
-                    $filename = $_FILES['pic']['name'];
+                    $uploadfile = $pathFile . basename($_FILES['pic']['name']);
 
-                    header('Content-Type: image/jpeg');
+                    if (!(move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)))
 
-                    list($width, $height) = getimagesize($filename);
-                    $koe=$width/240;
-                    $newheight = ceil($height/$koe);
-                    $koew=$width/320;
-                    $newwidth = ceil($width/$koew);
-
-                    $thumb = imagecreatetruecolor(240, $newheight);
-                    $source = imagecreatefromjpeg($filename);
-
-                    imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-
-                    imagejpeg($thumb);
-
-
-                    if (!copy($_FILES['pic']['tmp_name'], $pathFile . $_FILES['pic']['name'])) {
+                    {
 
                         $error_file = 'Uploading error';
                         $error = true;
+
                     }
+
+                    list($width, $height) = getimagesize($uploadfile);
+                    $koe=$width/320;
+                    $newheight = ceil($height/$koe);
+
+                    $thumb = imagecreatetruecolor(320, $newheight);
+
+                    if($_FILES['pic']['type'] == 'image/jpeg')
+                    {
+
+                        $source = imagecreatefromjpeg($uploadfile);
+
+                    }
+
+                    if($_FILES['pic']['type'] == 'image/png')
+                    {
+
+                        $source = imagecreatefrompng($uploadfile);
+
+                    }
+
+                    if($_FILES['pic']['type'] == 'image/gif')
+                    {
+
+                        $source = imagecreatefromgif($uploadfile);
+
+                    }
+
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, 320, $newheight, $width, $height);
+
+                    imagejpeg($thumb, $uploadfile);
 
                 }
 
@@ -152,12 +170,13 @@ class TasksController
 
         if ($id)
         {
-            $taskItem = TasksPage::getItemById($id);
+            //$taskItem = TasksPage::getItemById($id);
 
+            require_once(ROOT . '/Views/Pre.php');
+            exit;
         }
 
-        require_once(ROOT . '/Views/view.php');
-        exit;
+
     }
 
 };

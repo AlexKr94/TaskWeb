@@ -29,7 +29,12 @@ include_once ROOT.'/components/Db.php';
 
              $tasksList = array();
 
-             $orderPrepare= array('id','name','email');
+             if(!isset($_GET['order'])) {
+
+                 $_GET['order'] = 'id';
+             }
+
+             $orderPrepare= array('id','name','email', 'img');
              $key= array_search($_GET['order'],$orderPrepare);
              $orders = $orderPrepare[$key];
 
@@ -54,6 +59,7 @@ include_once ROOT.'/components/Db.php';
                  $tasksList[$i]['name'] = $row['name'];
                  $tasksList[$i]['email'] = $row['email'];
                  $tasksList[$i]['task'] = $row['task'];
+                 $tasksList[$i]['img'] = $row['img'];
                  $i++;
              }
 
@@ -76,15 +82,16 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public static function addTask ($email, $name, $text) {
+         public static function addTask ($email, $name, $text, $img) {
 
              $db = Db::getConnection();
 
-             $add = $db->prepare("INSERT INTO `tasks`(`name`, `email`, `task`) VALUES (:name,:email, :text)");
+             $add = $db->prepare("INSERT INTO `tasks`(`name`, `email`, `task`, `img` ) VALUES (:name,:email, :text, :img)");
 
              $add->bindValue(':email', $email);
              $add->bindValue(':name', $name);
              $add->bindValue(':text', $text);
+             $add->bindValue(':img', $img);
 
              $add->execute();
 

@@ -8,11 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <?php if ($addText == true) {
-        echo '<script>location.replace("http://task.web/?page=1&order=id");</script>'; exit;
-        exit;
-    }?>
-    <title>CREAR YOUR TASK</title>
+    <title>LOGIN</title>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light menu">
             <div class="container">
@@ -33,30 +29,20 @@
 <body>
 <div class="content">
     <div class="container">
-        <form action="/tasks/create" method="post" enctype="multipart/form-data" >
-            <div class="form-group" name="Create form">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" name="email" id="inputEmail1" aria-describedby="emailHelp" value="<?=$_SESSION['email']?>" placeholder="Enter your Email">
-                <span style="color: #0069d9"><b><?=$error_email;?></b></span>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        <form action="/tasks/create" method="get" enctype="multipart/form-data" >
+            <div class="form-group" name="Login form">
+                <div class="form-group">
+                <label for="inlineFormInput">Login</label>
+                <input type="text" class="form-control mb-2" name="name" id="nameInput" value=""  placeholder="Your Name">
+                <span style="color: #0069d9"><b><?php/*=$error_log;*/?></b></span>
             </div>
-            <div class="form-group">
-                <label for="inlineFormInput">Name</label>
-                <input type="text" class="form-control mb-2" name="name" id="nameInput" value="<?=$_SESSION['name']?>"  placeholder="Your Name">
-                <span style="color: #0069d9"><b><?=$error_name;?></b></span>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlTextarea1">Your task</label>
-                <textarea type="textarea" class="form-control" name="text" id="textArea" rows="8" placeholder="Enter your Task"><?=$_SESSION['text']?></textarea>
-                <span style="color:  #0069d9"><b><?=$error_text;?></b></span>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="pic" class="custom-file-input" id="customFile">
-                <label class="custom-file-label" for="customFile">Choose file</label>
-            </div>
-            <span style="color: #0069d9"><b><?=$error_file;?></b></span>
+                <div class="form-group">
+                    <label for="inlineFormInput">Password</label>
+                    <input type="password" class="form-control mb-2" name="password" id="passInput" value=""  placeholder="Your Name">
+                    <span style="color: #0069d9"><b><?php/*=$error_pass;*/?></b></span>
+                </div>
             <p></p>
-            <button type="submit" class="btn btn-primary" name="send">Send!</button>
+            <button type="submit" class="btn btn-primary" name="butl">Login</button>
         </form>
     </div>
 </div>
@@ -67,4 +53,3 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 </body>
 </html>
-

@@ -26,28 +26,28 @@
                         <a class="nav-link" href="http://task.web/tasks/create">create task</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">login</a>
+                        <a class="nav-link" href="http://task.web/users/login">login</a>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
-    <title>Tasks</title>
+    <title >Tasks</title>
 </head>
 <body>
 <div class="content">
     <div class="container">
         <div class="slogan">
-            <h1>tasks</h1>
+            <h1 style="color: #000000">tasks</h1>
         </div>
         <div class="row">
             <?php if ($tasksList != null) {
                 foreach ($tasksList as $taskItem): ?>
                     <div class="col-md-12">
                         <div class="card">
-                            <h4><?=$taskItem['name'];?></h4>
-                            <p><b>Email: </b><?=$taskItem['email']?></p>
-                            <p><b>Task:</b><br><?=$taskItem['task'];?></p>
+                            <h4 style="color: #000000"><?=$taskItem['name'];?></h4>
+                            <p><b style="color: #000000">Email: </b><?=$taskItem['email']?></p>
+                            <p><b style="color: #000000">Task:</b><br><?=$taskItem['task'];?></p>
                             <p><img src="http://task.web/upload/<?php if (isset($taskItem['img'])){ echo $taskItem['img'];}?>" alt=""></p>
                             <a href=""></a>
                         </div>

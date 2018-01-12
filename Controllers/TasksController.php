@@ -5,6 +5,15 @@ class TasksController
 
     public function actionIndex()
     {
+        if(!isset($_GET['order'])) {
+
+            $_GET['order'] = 'id';
+        }
+
+        if(!isset($_GET['page'])) {
+
+            $_GET['page'] = 1;
+        }
 
         $curlPage = isset($_GET['page']) ? $_GET['page'] : 1;
         $order = isset($_GET['order']) ? $_GET['order'] : 'id';
@@ -50,6 +59,14 @@ class TasksController
                 {
 
                     $error_file = "You can upload only .jpeg .gif .png";
+                    $error = true;
+
+                }
+
+                if (!isset($_FILES['pic']['name']))
+                {
+
+                    $error_file = "Choose image";
                     $error = true;
 
                 }
@@ -147,10 +164,6 @@ class TasksController
         else
         {
 
-            $_SESSION['email'] = "";
-            $_SESSION['name'] = "";
-            $_SESSION['text'] = "";
-
             $error_email = "";
             $error_name = "";
             $error_text = "";
@@ -160,6 +173,7 @@ class TasksController
             $addText = false;
 
         }
+
 
         require_once(ROOT . '/Views/Create.php');
         exit;

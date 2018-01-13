@@ -35,27 +35,22 @@
 <body>
 <div class="content">
     <div class="container">
-        <?php if ($getTask != null) {
-        foreach ($getTask as $showItem): ?>
         <div class="col-md-12">
             <div class="card">
-                <h4 style="color: #000000"><?=$showItem['name'];?></h4>
-                <p><b style="color: #000000">Email: </b><?=$showItem['email']?></p>
+                <h4 style="color: #000000"><?=$showName;?></h4>
+                <p><b style="color: #000000">Email: </b><?=$showEmail;?></p>
             </div>
             <p></p>
         </div>
-        <form action="/users/edit/<?=$parametrs?>" method="post">
+        <form action="/edit/<?=$showid?>" method="post">
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Edit task</label>
-                <textarea type="textarea" class="form-control" name="edTask" id="textArea" rows="8" placeholder="Enter your Task"><?=$showItem['task'];?></textarea>
+                <label style="color: #000000" for="area">Edit task</label>
+                <textarea type="textarea" class="form-control" name="tasks" id="taskArea" rows="8" placeholder="Enter your Task"><?=$showTask;?></textarea>
                 <span style="color:  #0069d9"><b><?=$errorTask;?></b></span>
-                <?php endforeach;
-                }?>
             </div>
             <p></p>
             <button type="submit" class="btn btn-primary" name="edit">Edit</button>
         </form>
-
     </div>
 </div>
 <!-- Optional JavaScript -->

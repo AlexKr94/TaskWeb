@@ -82,7 +82,8 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public static function addTask ($email, $name, $text, $img) {
+         public static function addTask ($email, $name, $text, $img)
+         {
 
              $db = Db::getConnection();
 
@@ -113,7 +114,6 @@ include_once ROOT.'/components/Db.php';
 
              $i = 0;
              while($item = $result->fetch()) {
-
                  $getTask[$i]['id'] = $item['id'];
                  $getTask[$i]['name'] = $item['name'];
                  $getTask[$i]['email'] = $item['email'];
@@ -125,21 +125,23 @@ include_once ROOT.'/components/Db.php';
 
          }
 
-         public static function edItem($id, $newTask)
-         {
+         public static function edItem($id)
+     {
 
-             $db = Db::getConnection();
+         $db = Db::getConnection();
 
-             $result = $db->prepare("UPDATE tasks SET task =:newTask WHERE `tasks`.`id=:id");
+         $result = $db->prepare("UPDATE tasks SET task=:newTask WHERE `tasks`.id=:id");
 
-             $result->bindValue('id', $id);
-             $result->bindValue('newTask', $newTask);
+         $result->bindValue('id', $id);
+         var_dump($id);
 
-             $result->execute();
+         $result->bindValue('newTask', $_POST['tasks']);
 
-             $successEdit = true;
 
-             return $successEdit;
+
+         $successEdit = true;
+
+         return $successEdit;
 
          }
      }

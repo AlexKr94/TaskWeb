@@ -184,36 +184,53 @@ class TasksController
 
     public function actionEdit ($id)
     {
-
-        $errorTask = '';
-        $error = false;
-        $getTask = array();
-
-        $getTask = TasksPage::getItem($id);
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-            if (isset($_POST['edit']) && isset($_POST['EdTask']) && strlen($_POST['EdTask']) != 0) {
-
-                var_dump($_POST['edit']);
-                var_dump($_POST['edTask']);
-
-                $newTask = htmlspecialchars($_POST['EdTask']);
-
-                $updTask = TasksPage::edItem($id, $newTask);
-
-            } else {
-
-                $errorTask = 'Empty text field';
-                $error = true;
-                $successEdit = false;
-
-            }
-
+        if(!$_SESSION['admin']) {
+            header("Location: /users/login");
+            exit;
         }
 
-        require_once (ROOT.'/Views/Editing.php');
-        exit;
+        else
+        {
+
+            $errorTask = '';
+            $error = false;
+            $getTask = array();
+
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                if (isset($_POST['edit']) && isset($_POST['tasks']) && strlen($_POST['tasks'])) {
+
+                    /*$newTask = htmlspecialchars($_POST['task']);
+                    var_dump($_POST['tasks']);*/
+
+
+                    $updTask = TasksPage::edItem($id, $_POST['tasks']);
+
+                } else {
+
+                    $errorTask = 'Empty text field';
+                    $error = true;
+                    $successEdit = false;
+
+                }
+
+            } else {
+                $getTask = TasksPage::getItem($id);
+
+                foreach ($getTask as $show):
+
+                    $showid = $show['id'];
+                    $showName = $show['name'];
+                    $showEmail = $show['email'];
+                    $showTask = $show['task'];
+
+                endforeach;
+            }
+
+            require_once(ROOT . '/Views/Editing.php');
+            exit;
+        }
     }
 
 };

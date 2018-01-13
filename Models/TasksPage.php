@@ -6,7 +6,7 @@ include_once ROOT.'/components/Db.php';
 
          const TASKSONPAGE = 3;
 
-         public static function getItemById ($id){
+        /* public static function getItemById ($id){
 
              $id = intval($id);
 
@@ -21,7 +21,7 @@ include_once ROOT.'/components/Db.php';
                  $taskItem = $result->fetch();
                  return $taskItem;
              }
-         }
+         }*/
 
          public static function getTasksList ($order, $curlPage) {
 
@@ -98,5 +98,48 @@ include_once ROOT.'/components/Db.php';
              $addText = true;
 
              return $addText;
+         }
+
+         public static function getItem ($id)
+         {
+
+             $db = Db::getConnection();
+
+             $result = $db->prepare("SELECT * FROM tasks WHERE id=:id");
+
+             $result->bindValue('id', $id);
+
+             $result->execute();
+
+             $i = 0;
+             while($item = $result->fetch()) {
+
+                 $getTask[$i]['id'] = $item['id'];
+                 $getTask[$i]['name'] = $item['name'];
+                 $getTask[$i]['email'] = $item['email'];
+                 $getTask[$i]['task'] = $item['task'];
+                 $i++;
+             }
+
+             return $getTask;
+
+         }
+
+         public static function edItem($id, $newTask)
+         {
+
+             $db = Db::getConnection();
+
+             $result = $db->prepare("UPDATE tasks SET task =:newTask WHERE `tasks`.`id=:id");
+
+             $result->bindValue('id', $id);
+             $result->bindValue('newTask', $newTask);
+
+             $result->execute();
+
+             $successEdit = true;
+
+             return $successEdit;
+
          }
      }

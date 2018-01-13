@@ -52,6 +52,9 @@
                             <p><b style="color: #000000">Task:</b><br><?=$taskItem['task'];?></p>
                             <p><img src="http://task.web/upload/<?php if (isset($taskItem['img'])){ echo $taskItem['img'];}?>" alt=""></p>
                             <a href=""></a>
+                            <div>
+                                <button type="button" class="btn btn-outline-warning" onclick="window.open('/edit/<?=$taskItem['id']?>')" btn-sm>Edit</button>
+                            </div>
                         </div>
                         <p></p>
                     </div>

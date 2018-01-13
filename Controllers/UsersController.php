@@ -1,7 +1,7 @@
 <?php
 
 
-include_once ROOT . '/Models/UsersLogin.php';
+include_once ROOT . '/Models/UsersModel.php';
 
 class UsersController
 {
@@ -20,7 +20,7 @@ class UsersController
             if(isset($_POST['logbut']) && $_POST['login'] != '' && $_POST['pass'] != '')
             {
 
-                $admin= UsersLogin::Login();
+                $admin= UsersModel::login();
 
                 foreach ($admin as $val) {
 
@@ -54,6 +54,37 @@ class UsersController
         require_once(ROOT . '/Views/Login.php');
 
         exit;
+    }
+
+    public function actionEdit ($id)
+    {
+
+        $errorTask = '';
+        $error = false;
+        $getTask = array();
+
+        $getTask = UsersModel::getItem($id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if(isset($_POST['edit']) && isset($_POST['EdTask']) && strlen($_POST['EdTask']) != 0){
+
+                $Edtask =htmlspecialchars($_POST['EdTask']);
+
+            }
+            else{
+
+                $errorTask = 'Empty text field';
+                $error = true;
+
+            }
+
+
+
+        }
+
+        require_once (ROOT.'/Views/Editing.php');
+
     }
 
     public function actionLogout ()

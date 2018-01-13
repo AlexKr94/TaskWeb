@@ -30,7 +30,7 @@ class TasksController
     public function actionCreate()
     {
 
-        $tmp_path = 'tmp/';
+        $tmpPath = 'tmp/';
         $pathFile = 'upload/';
         $types = array('image/gif', 'image/png', 'image/jpeg');
         $size = 1024000;
@@ -52,17 +52,16 @@ class TasksController
                 $_SESSION['name'] = htmlspecialchars($_POST['name']);
                 $_SESSION['text'] = htmlspecialchars($_POST['text']);
 
-                $error_email = "";
-                $error_name = "";
-                $error_text = "";
-                $error_file = "";
+                $errorEmail = "";
+                $errorName = "";
+                $errorFile = "";
                 $error = false;
                 $addText = false;
 
                 if (!in_array($_FILES['pic']['type'], $types))
                 {
 
-                    $error_file = "You can upload only .jpeg .gif .png";
+                    $errorFile = "You can upload only .jpeg .gif .png";
                     $error = true;
 
                 }
@@ -70,7 +69,7 @@ class TasksController
                 if (!isset($_FILES['pic']['name']))
                 {
 
-                    $error_file = "Choose image";
+                    $errorFile = "Choose image";
                     $error = true;
 
                 }
@@ -78,7 +77,7 @@ class TasksController
                 if ($_FILES['pic']['size'] > $size)
                 {
 
-                    $error_file = "Too big image";
+                    $errorFile = "Too big image";
                     $error = true;
 
                 }
@@ -86,54 +85,54 @@ class TasksController
                 if (strlen($_FILES['pic']['name']) != 0)
                 {
 
-                    $uploadfile = $pathFile . basename($_FILES['pic']['name']);
+                    $uploadFile = $pathFile . basename($_FILES['pic']['name']);
 
-                    if (!(move_uploaded_file($_FILES['pic']['tmp_name'], $uploadfile)))
+                    if (!(move_uploaded_file($_FILES['pic']['tmp_name'], $uploadFile)))
 
                     {
 
-                        $error_file = 'Uploading error';
+                        $errorFile = 'Uploading error';
                         $error = true;
 
                     }
 
-                    list($width, $height) = getimagesize($uploadfile);
+                    list($width, $height) = getimagesize($uploadFile);
                     $koe=$width/320;
-                    $newheight = ceil($height/$koe);
+                    $newHeight = ceil($height/$koe);
 
-                    $thumb = imagecreatetruecolor(320, $newheight);
+                    $thumb = imagecreatetruecolor(320, $newHeight);
 
                     if($_FILES['pic']['type'] == 'image/jpeg')
                     {
 
-                        $source = imagecreatefromjpeg($uploadfile);
+                        $source = imagecreatefromjpeg($uploadFile);
 
                     }
 
                     if($_FILES['pic']['type'] == 'image/png')
                     {
 
-                        $source = imagecreatefrompng($uploadfile);
+                        $source = imagecreatefrompng($uploadFile);
 
                     }
 
                     if($_FILES['pic']['type'] == 'image/gif')
                     {
 
-                        $source = imagecreatefromgif($uploadfile);
+                        $source = imagecreatefromgif($uploadFile);
 
                     }
 
-                    imagecopyresized($thumb, $source, 0, 0, 0, 0, 320, $newheight, $width, $height);
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, 320, $newHeight, $width, $height);
 
-                    imagejpeg($thumb, $uploadfile);
+                    imagejpeg($thumb, $uploadFile);
 
                 }
 
                 if ($email == "" || !preg_match("/@/", $email))
                 {
 
-                    $error_email = "Enter your Email";
+                    $errorEmail = "Enter your Email";
                     $error = true;
 
                 }
@@ -141,7 +140,7 @@ class TasksController
                 if (strlen($name) == 0)
                 {
 
-                    $error_name = "Enter your name";
+                    $errorName = "Enter your name";
                     $error = true;
 
                 }
@@ -149,7 +148,7 @@ class TasksController
                 if (strlen($text) == 0)
                 {
 
-                    $error_text = "Enter your task";
+                    $errorText = "Enter your task";
                     $error = true;
 
                 }
@@ -168,10 +167,10 @@ class TasksController
         else
         {
 
-            $error_email = "";
-            $error_name = "";
-            $error_text = "";
-            $error_file = "";
+            $errorEmail = "";
+            $errorName = "";
+            $errorText = "";
+            $errorFile = "";
             $error = false;
 
             $addText = false;
@@ -183,18 +182,38 @@ class TasksController
         exit;
     }
 
-    public function actionView($id)
+    public function actionEdit ($id)
     {
 
-        if ($id)
-        {
-            //$taskItem = TasksPage::getItemById($id);
+        $errorTask = '';
+        $error = false;
+        $getTask = array();
 
-            require_once(ROOT . '/Views/Pre.php');
-            exit;
+        $getTask = TasksPage::getItem($id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            if (isset($_POST['edit']) && isset($_POST['EdTask']) && strlen($_POST['EdTask']) != 0) {
+
+                var_dump($_POST['edit']);
+                var_dump($_POST['edTask']);
+
+                $newTask = htmlspecialchars($_POST['EdTask']);
+
+                $updTask = TasksPage::edItem($id, $newTask);
+
+            } else {
+
+                $errorTask = 'Empty text field';
+                $error = true;
+                $successEdit = false;
+
+            }
+
         }
 
-
+        require_once (ROOT.'/Views/Editing.php');
+        exit;
     }
 
 };

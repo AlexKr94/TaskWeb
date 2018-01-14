@@ -37,18 +37,18 @@
     <div class="container">
         <form action="/tasks/create" method="post" enctype="multipart/form-data" >
             <div class="form-group" name="Create form">
-                <label for="exampleInputEmail1">Email address</label>
+                <label style="color: dodgerblue" for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control" name="email" id="inputEmail1" aria-describedby="emailHelp" value="<?=$_SESSION['email']?>" placeholder="Enter your Email">
                 <span style="color: #0069d9"><b><?=$errorEmail;?></b></span>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
-                <label for="inlineFormInput">Name</label>
+                <label style="color: dodgerblue"  for="inlineFormInput">Name</label>
                 <input type="text" class="form-control mb-2" name="name" id="nameInput" value="<?=$_SESSION['name']?>"  placeholder="Your Name">
                 <span style="color: #0069d9"><b><?=$errorName;?></b></span>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Your task</label>
+                <label style="color: dodgerblue"  for="exampleFormControlTextarea1">Your task</label>
                 <textarea type="textarea" class="form-control" name="text" id="textArea" rows="8" placeholder="Enter your Task"><?=$_SESSION['text']?></textarea>
                 <span style="color:  #0069d9"><b><?=$errorText;?></b></span>
             </div>
@@ -59,6 +59,7 @@
             <span style="color: #0069d9"><b><?=$errorFile;?></b></span>
             <p></p>
             <button type="submit" class="btn btn-primary" name="send">Send!</button>
+
         </form>
     </div>
 </div>

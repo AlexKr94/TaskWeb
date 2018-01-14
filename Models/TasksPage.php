@@ -133,11 +133,10 @@ include_once ROOT.'/components/Db.php';
          $result = $db->prepare("UPDATE tasks SET task=:newTask WHERE `tasks`.id=:id");
 
          $result->bindValue('id', $id);
-         var_dump($id);
 
          $result->bindValue('newTask', $_POST['tasks']);
 
-
+         $result->execute();
 
          $successEdit = true;
 

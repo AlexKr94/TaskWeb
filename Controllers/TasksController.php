@@ -39,7 +39,7 @@ class TasksController
         $_SESSION['name'] = '';
         $_SESSION['text'] = '';
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['send'])) {
 
@@ -47,6 +47,7 @@ class TasksController
                 $name = htmlspecialchars($_POST['name']);
                 $text = htmlspecialchars($_POST['text']);
                 $img = htmlspecialchars($_FILES['pic']['name']);
+                var_dump($_POST['name']);
 
                 $_SESSION['email'] = htmlspecialchars($_POST['email']);
                 $_SESSION['name'] = htmlspecialchars($_POST['name']);
@@ -54,6 +55,7 @@ class TasksController
 
                 $errorEmail = "";
                 $errorName = "";
+                $errorText = "";
                 $errorFile = "";
                 $error = false;
                 $addText = false;
@@ -97,35 +99,40 @@ class TasksController
                     }
 
                     list($width, $height) = getimagesize($uploadFile);
-                    $koe=$width/320;
-                    $newHeight = ceil($height/$koe);
 
-                    $thumb = imagecreatetruecolor(320, $newHeight);
+                    if ($width > 320 || $height > 240 ){
 
-                    if($_FILES['pic']['type'] == 'image/jpeg')
-                    {
+                        $koe=$width/320;
+                        $newHeight = ceil($height/$koe);
 
-                        $source = imagecreatefromjpeg($uploadFile);
+                        $thumb = imagecreatetruecolor(320, $newHeight);
+
+                        if($_FILES['pic']['type'] == 'image/jpeg')
+                        {
+
+                            $source = imagecreatefromjpeg($uploadFile);
+
+                        }
+
+                        if($_FILES['pic']['type'] == 'image/png')
+                        {
+
+                            $source = imagecreatefrompng($uploadFile);
+
+                        }
+
+                        if($_FILES['pic']['type'] == 'image/gif')
+                        {
+
+                            $source = imagecreatefromgif($uploadFile);
+
+                        }
+
+                        imagecopyresized($thumb, $source, 0, 0, 0, 0, 320, $newHeight, $width, $height);
+
+                        imagejpeg($thumb, $uploadFile);
 
                     }
-
-                    if($_FILES['pic']['type'] == 'image/png')
-                    {
-
-                        $source = imagecreatefrompng($uploadFile);
-
-                    }
-
-                    if($_FILES['pic']['type'] == 'image/gif')
-                    {
-
-                        $source = imagecreatefromgif($uploadFile);
-
-                    }
-
-                    imagecopyresized($thumb, $source, 0, 0, 0, 0, 320, $newHeight, $width, $height);
-
-                    imagejpeg($thumb, $uploadFile);
 
                 }
 
@@ -161,21 +168,21 @@ class TasksController
                 }
 
             }
+            else{
+                $errorEmail = "";
+                $errorName = "";
+                $errorText = "";
+                $errorFile = "";
+                $error = false;
 
-        }
+                $addText = false;
+            }
 
-        else
-        {
+        //}
 
-            $errorEmail = "";
-            $errorName = "";
-            $errorText = "";
-            $errorFile = "";
-            $error = false;
 
-            $addText = false;
 
-        }
+
 
 
         require_once(ROOT . '/Views/Create.php');
@@ -195,27 +202,25 @@ class TasksController
             $errorTask = '';
             $error = false;
             $getTask = array();
+            $successEdit = false;
 
 
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if (isset($_POST['edit']) && isset($_POST['tasks']) && strlen($_POST['tasks'])) {
 
-                    /*$newTask = htmlspecialchars($_POST['task']);
-                    var_dump($_POST['tasks']);*/
-
-
                     $updTask = TasksPage::edItem($id, $_POST['tasks']);
+                    $successEdit = true;
 
                 } else {
 
                     $errorTask = 'Empty text field';
                     $error = true;
-                    $successEdit = false;
 
                 }
 
-            } else {
+            }
+            else {
                 $getTask = TasksPage::getItem($id);
 
                 foreach ($getTask as $show):
@@ -228,9 +233,17 @@ class TasksController
                 endforeach;
             }
 
+
             require_once(ROOT . '/Views/Editing.php');
             exit;
         }
+    }
+
+    public function actionPre ()
+    {
+        require_once(ROOT.'/Views/Pre.php');
+        exit;
+
     }
 
 };

@@ -52,6 +52,7 @@
                             <p><b style="color: #000000">Task:</b><br><?=$taskItem['task'];?></p>
                             <p><img src="http://task.web/upload/<?php if (isset($taskItem['img'])){ echo $taskItem['img'];}?>" alt=""></p>
                             <a href=""></a>
+                            <?php if (isset($taskItem['done']) && $taskItem['done'] == 1) { echo '<b style="color: green">THIS TASK COMPLETE</b>'; }?>
                             <div>
                                 <button type="button" class="btn btn-outline-warning" onclick="window.open('/edit/<?=$taskItem['id']?>')" btn-sm>Edit</button>
                             </div>

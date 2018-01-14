@@ -8,8 +8,6 @@ class UsersController
 
     public function actionLogin()
     {
-       /* $login = 'admin';
-        $pass = '202cb962ac59075b964b07152d234b70';*/
         $error_login = '';
         $error_pass = '';
         $error = false;
